@@ -2,7 +2,7 @@ import React from 'react';
 
 import Banner from './Banner';
 import FeedToggle from './FeedToggle';
-import Feed from './Feed';
+import ArticleList from './ArticleList';
 import PopularTags from './PopularTags';
 
 const Home: React.FC = () => {
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
               tag={tag}
               onTabClick={handleTabClick}
             />
-            <Feed tab={tab} />
+            <ArticleList tab={tab} />
           </div>
           <div className="col-md-3">
           <div className="sidebar">

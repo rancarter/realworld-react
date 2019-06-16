@@ -9,7 +9,7 @@ type Props = {
   tab: string | null,
 }
 
-const Feed: React.FC<Props> = ({ tab }) => {
+const ArticleList: React.FC<Props> = ({ tab }) => {
   const [page, setPage] = React.useState(1);
   const { isFetching, data, error }= useFetch<ArticlesResponse>(
     apiClient.articles.list, {}, [tab, page]
@@ -26,10 +26,10 @@ const Feed: React.FC<Props> = ({ tab }) => {
   return (
     <>
       {data && data.articles.map(article => (
-        <Article />
+        <Article key={article.slug} article={article} />
       ))}
     </>
   );
 };
 
-export default Feed;
+export default ArticleList;
