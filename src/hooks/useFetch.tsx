@@ -4,6 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 function useFetch<T>(
   func: (params: Object) => Promise<AxiosResponse<any>>,
   params: Object = {},
+  dependencies: any[] = [],
 ) {
   const [isFetching, setIsFetching] = React.useState(false);
   const [data, setData] = React.useState<T | null>(null);
@@ -22,7 +23,7 @@ function useFetch<T>(
       .finally(() => {
         setIsFetching(false);
       });
-  }, []);
+  }, dependencies);
 
   return { isFetching, data, error };
 }
