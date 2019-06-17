@@ -18,6 +18,7 @@ const PopularTags: React.FC<Props> = ({ onClick }) => {
     <div className="tag-list">
       {data.tags.map(tag => (
         <a
+          key={tag}
           href=""
           className="tag-pill tag-default"
           onClick={(event) => {
