@@ -1,26 +1,34 @@
 import React from 'react';
+import { NavLink, Link } from 'react-router-dom';
+
+import { ROUTES } from '../constants';
 
 const Header: React.FC = () => (
   <header>
     <nav className="navbar navbar-light">
       <div className="container">
-        <a className="navbar-brand" href="index.html">conduit</a>
+        <Link to={ROUTES.HOME.PATH} className="navbar-brand">conduit</Link>
         <ul className="nav navbar-nav pull-xs-right">
           <li className="nav-item">
-            <a className="nav-link active" href="">Home</a>
+            <NavLink
+              to={ROUTES.HOME.PATH}
+              className="nav-link">
+                Home
+            </NavLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="">
-              <i className="ion-compose"></i>&nbsp;New Post
-            </a>
+            <NavLink
+              to={ROUTES.LOGIN.PATH}
+              className="nav-link">
+                Sign in
+            </NavLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="">
-              <i className="ion-gear-a"></i>&nbsp;Settings
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="">Sign up</a>
+            <NavLink
+              to={ROUTES.REGISTER.PATH}
+              className="nav-link">
+                Sign up
+            </NavLink>
           </li>
         </ul>
       </div>

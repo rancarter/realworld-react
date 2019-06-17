@@ -18,7 +18,11 @@ type ArticleListProps = {
 
 const limit = 10;
 
-const Pagination: React.FC<PaginationProps> = ({ articlesCount, currentPage, onPageClick }) => {
+const Pagination: React.FC<PaginationProps> = ({
+  articlesCount,
+  currentPage,
+  onPageClick,
+}) => {
   const pagesCount = articlesCount / limit;
   const pages = [];
 
@@ -56,10 +60,8 @@ const Pagination: React.FC<PaginationProps> = ({ articlesCount, currentPage, onP
 const ArticleList: React.FC<ArticleListProps> = ({ tag }) => {
   const [page, setPage] = React.useState(1);
   const { isFetching, data } = useFetch<ArticlesResponse>(
-    apiClient.articles.list, {
-      tag,
-      offset: (page - 1) * limit,
-    }, 
+    apiClient.articles.list, 
+    { tag, offset: (page - 1) * limit }, 
     [tag, page],
   );
 
@@ -72,7 +74,9 @@ const ArticleList: React.FC<ArticleListProps> = ({ tag }) => {
       {data && data.articles.map(article => (
         <Article key={article.slug} article={article} />
       ))}
+
       {isFetching && <div>Loading articles...</div>}
+
       {data && (
         <Pagination
           articlesCount={data.articlesCount}
