@@ -30,7 +30,7 @@ const Home: React.FC = () => {
               tag={tag}
               onTabClick={handleTabClick}
             />
-            <ArticleList tab={tab} />
+            <ArticleList tag={tag} />
           </div>
           <div className="col-md-3">
           <div className="sidebar">

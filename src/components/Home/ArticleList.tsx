@@ -6,17 +6,23 @@ import useFetch from '../../hooks/useFetch';
 import Article from './Article';
 
 type Props = {
-  tab: string | null,
+  tag: string | null,
 }
 
-const ArticleList: React.FC<Props> = ({ tab }) => {
+const limit = 10;
+
+const ArticleList: React.FC<Props> = ({ tag }) => {
   const [page, setPage] = React.useState(1);
-  const { isFetching, data, error }= useFetch<ArticlesResponse>(
-    apiClient.articles.list, {}, [tab, page]
+  const { isFetching, data, error } = useFetch<ArticlesResponse>(
+    apiClient.articles.list, {
+      tag,
+      offset: (page - 1) * limit,
+    }, 
+    [tag, page],
   );
 
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <div>Loading articles...</div>;
   }
 
   if (error) {

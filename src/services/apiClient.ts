@@ -11,9 +11,20 @@ export type ArticlesResponse = {
   articles: Article[],
 }
 
+export type TagsResponse = {
+  tags: string[],
+}
+
 type ApiClient = {
   articles: {
-    list: (params?: any) => Promise<AxiosResponse<ArticlesResponse>>,
+    list: (params: {
+      limit: number,
+      offset: number,
+      tag?: string,
+    }) => Promise<AxiosResponse<ArticlesResponse>>,
+  }
+  tags: {
+    list: () => Promise<AxiosResponse<TagsResponse>>,
   }
 }
 
@@ -29,10 +40,24 @@ axiosInstance.interceptors.response.use(response => response, (error: any) => {
 
 const apiClient: ApiClient = {
   articles: {
-    list({ limit = 10, offset = 0 }) {
-      return axiosInstance.get(`/articles?limit=${limit}&offset=${offset}`);
+    list({ limit = 10, offset = 0, tag }) {
+      const params = getParamsString({ limit, offset, tag });
+      return axiosInstance.get(`/articles?${params}`);
+    }
+  },
+  tags: {
+    list() {
+      return axiosInstance.get('/tags');
     }
   }
 };
 
 export default apiClient;
+
+function getParamsString(params: Object): string {
+  return Object
+    .entries(params)
+    .filter(param => param[1])
+    .map(param => param.join('='))
+    .join('&');
+}

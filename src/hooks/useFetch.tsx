@@ -2,7 +2,7 @@ import React from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 
 function useFetch<T>(
-  func: (params: Object) => Promise<AxiosResponse<any>>,
+  func: (params: any) => Promise<AxiosResponse<any>>,
   params: Object = {},
   dependencies: any[] = [],
 ) {
