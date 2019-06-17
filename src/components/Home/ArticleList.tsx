@@ -55,7 +55,7 @@ const Pagination: React.FC<PaginationProps> = ({ articlesCount, currentPage, onP
 
 const ArticleList: React.FC<ArticleListProps> = ({ tag }) => {
   const [page, setPage] = React.useState(1);
-  const { isFetching, data, error } = useFetch<ArticlesResponse>(
+  const { isFetching, data } = useFetch<ArticlesResponse>(
     apiClient.articles.list, {
       tag,
       offset: (page - 1) * limit,
@@ -63,32 +63,23 @@ const ArticleList: React.FC<ArticleListProps> = ({ tag }) => {
     [tag, page],
   );
 
-  if (isFetching) {
-    return <div>Loading articles...</div>;
-  }
-
-  if (error) {
-    return <div>Something went wrong</div>;
-  }
-
-  if (!data) {
-    return null;
-  }
-
   const handlePageClick = (pageNumber: number) => {
     setPage(pageNumber);
   }
 
   return (
     <>
-      {data.articles.map(article => (
+      {data && data.articles.map(article => (
         <Article key={article.slug} article={article} />
       ))}
-      <Pagination
-        articlesCount={data.articlesCount}
-        currentPage={page}
-        onPageClick={handlePageClick}
-      />
+      {isFetching && <div>Loading articles...</div>}
+      {data && (
+        <Pagination
+          articlesCount={data.articlesCount}
+          currentPage={page}
+          onPageClick={handlePageClick}
+        />
+      )}
     </>
   );
 };
