@@ -10,4 +10,7 @@ export const ROUTES = {
   REGISTER: {
     PATH: '/register',
   },
+  ARTICLE: {
+    PATH: '/articles/:slug',
+  },
 };

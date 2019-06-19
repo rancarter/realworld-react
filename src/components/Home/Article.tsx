@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link, generatePath } from 'react-router-dom';
 
+import { ROUTES } from '../../constants';
 import { Article as ArticleType } from '../../types';
 
 type Props = {
@@ -18,11 +20,14 @@ const Article: React.FC<Props> = ({ article }) => (
         <i className="ion-heart"></i> {article.favoritesCount}
       </button>
     </div>
-    <a href="" className="preview-link">
+    <Link
+      to={generatePath(ROUTES.ARTICLE.PATH, { slug: article.slug })}
+      className="preview-link"
+    >
       <h1>{article.title}</h1>
       <p>{article.description}</p>
       <span>Read more...</span>
-    </a>
+    </Link>
   </div>
 );
 

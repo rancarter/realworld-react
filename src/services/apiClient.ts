@@ -7,6 +7,10 @@ enum HTTP_STATUSES {
   UNAUTHORIZED = 401,
 }
 
+export type ArticleResponse = {
+  article: Article,
+}
+
 export type ArticlesResponse = {
   articles: Article[],
   articlesCount: number,
@@ -18,6 +22,7 @@ export type TagsResponse = {
 
 type ApiClient = {
   articles: {
+    get: (slug: string) => Promise<AxiosResponse<ArticleResponse>>,
     list: (params: {
       limit: number,
       offset: number,
@@ -41,16 +46,19 @@ axiosInstance.interceptors.response.use(response => response, (error: any) => {
 
 const apiClient: ApiClient = {
   articles: {
+    get(slug) {
+      return axiosInstance.get(`/articles/${slug}`);
+    },
     list({ limit = 10, offset = 0, tag }) {
       const params = getParamsString({ limit, offset, tag });
       return axiosInstance.get(`/articles?${params}`);
-    }
+    },
   },
   tags: {
     list() {
       return axiosInstance.get('/tags');
-    }
-  }
+    },
+  },
 };
 
 export default apiClient;
