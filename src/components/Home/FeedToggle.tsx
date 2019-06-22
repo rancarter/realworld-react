@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-type Props = {
+interface Props {
   tab: string | null,
   tag: string | null,
   onTabClick: (tabName: string) => void,

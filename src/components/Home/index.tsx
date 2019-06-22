@@ -33,10 +33,10 @@ const Home: React.FC = () => {
             <ArticleList tag={tag} />
           </div>
           <div className="col-md-3">
-          <div className="sidebar">
-            <p>Popular Tags</p>
-            <PopularTags onClick={handleTagClick} />
-          </div>
+            <div className="sidebar">
+              <p>Popular Tags</p>
+              <PopularTags onClick={handleTagClick} />
+            </div>
           </div>
         </div>
       </div>

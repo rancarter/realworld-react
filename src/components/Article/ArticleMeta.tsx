@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Article } from '../../types';
 
-type Props = {
+interface Props {
   article: Article,
 }
 

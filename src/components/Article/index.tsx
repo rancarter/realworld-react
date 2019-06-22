@@ -9,9 +9,7 @@ interface MatchParams {
   slug: string;
 }
 
-interface Props extends RouteComponentProps<MatchParams> {
- 
-}
+interface Props extends RouteComponentProps<MatchParams> {}
 
 const Article: React.FC<Props> = ({ match }) => {
   const { isFetching, data } = useFetch<ArticleResponse>(

@@ -3,7 +3,7 @@ import React from 'react';
 import apiclient, { TagsResponse } from '../../services/apiClient'; 
 import useFetch from '../../hooks/useFetch';
 
-type Props = {
+interface Props {
   onClick: (tagName: string) => void,
 }
 
