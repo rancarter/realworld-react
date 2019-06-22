@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import apiClient, { ArticleResponse } from '../../services/apiClient';
 import useFetch from '../../hooks/useFetch';
-import ArticleBanner from './ArticleBanner';
+import ArticleMeta from './ArticleMeta';
 
 interface MatchParams {
   slug: string;
@@ -21,15 +21,21 @@ const Article: React.FC<Props> = ({ match }) => {
   );
 
   if (!data || isFetching) {
-    return <div>Article is loading...</div>;
+    return null;
   }
 
   const { article } = data;
   const paragraphs = article.body.split(/\s{2,}/g);
-  console.log(article);
+  
   return (
     <div className="article-page">
-      <ArticleBanner article={article} />
+      <div className="banner">
+        <div className="container">
+          <h1>{article.title}</h1>
+          <ArticleMeta article={article} />
+        </div>
+      </div>
+      
 
       <div className="container page">
         <div className="row article-content">
@@ -41,31 +47,9 @@ const Article: React.FC<Props> = ({ match }) => {
         <hr />
 
         <div className="article-actions">
-          <div className="article-meta">
-            <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
-            <div className="info">
-              <a href="" className="author">{article.author.username}</a>
-              <span className="date">
-                {new Date(article.createdAt).toDateString()}
-              </span>
-            </div>
-
-            <button className="btn btn-sm btn-outline-secondary">
-              <i className="ion-plus-round"></i>
-              &nbsp;
-              {article.author.username}
-            </button>
-            &nbsp;
-            <button className="btn btn-sm btn-outline-primary">
-              <i className="ion-heart"></i>
-              &nbsp;
-              Favorite Post <span className="counter">{article.favoritesCount}</span>
-            </button>
-          </div>
+          <ArticleMeta article={article} />
         </div>
-
       </div>
-
     </div>
   );
 };
