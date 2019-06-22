@@ -10,4 +10,5 @@ export type Article = {
   description: string,
   createdAt: string,
   favoritesCount: number,
+  body: string,
 }

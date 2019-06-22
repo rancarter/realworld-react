@@ -14,7 +14,9 @@ const Article: React.FC<Props> = ({ article }) => (
       <a href="profile.html"><img src={article.author.image} /></a>
       <div className="info">
         <a href="" className="author">{article.author.username}</a>
-        <span className="date">January 20th</span>
+        <span className="date">
+          {new Date(article.createdAt).toDateString()}
+        </span>
       </div>
       <button className="btn btn-outline-primary btn-sm pull-xs-right">
         <i className="ion-heart"></i> {article.favoritesCount}
