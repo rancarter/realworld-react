@@ -10,7 +10,7 @@ const SignupSchema = Yup.object().shape({
     .email("Invalid email")
     .required("Email is required"),
   password: Yup.string()
-    .min(2, "Password is too Short!")
+    .min(8, "Password is too Short!")
     .required("Password is required")
 });
 
@@ -49,6 +49,7 @@ const RegisterForm: React.FC<Props> = ({ onSubmit }) => {
                 type="text"
                 placeholder="Your Name"
                 name="username"
+                value={values.username}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
@@ -59,6 +60,7 @@ const RegisterForm: React.FC<Props> = ({ onSubmit }) => {
                 type="email"
                 placeholder="Email"
                 name="email"
+                value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
@@ -69,6 +71,7 @@ const RegisterForm: React.FC<Props> = ({ onSubmit }) => {
                 name="password"
                 type="password"
                 placeholder="Password"
+                value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
