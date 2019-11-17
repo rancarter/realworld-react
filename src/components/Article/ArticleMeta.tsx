@@ -8,9 +8,9 @@ interface Props {
 
 const ArticleMeta: React.FC<Props> = ({ article }) => (
   <div className="article-meta">
-    <a href=""><img src={article.author.image} alt="" /></a>
+    <a href="/"><img src={article.author.image} alt="" /></a>
     <div className="info">
-      <a href="" className="author">{article.author.username}</a>
+      <a href="/" className="author">{article.author.username}</a>
       <span className="date">
         {new Date(article.createdAt).toDateString()}
       </span>

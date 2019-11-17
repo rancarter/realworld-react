@@ -1,6 +1,6 @@
 import React from 'react';
 
-import apiclient, { TagsResponse } from '../../services/apiClient'; 
+import { getTags, TagsResponse } from '../../services/articleClient'; 
 import useFetch from '../../hooks/useFetch';
 
 interface Props {
@@ -8,7 +8,11 @@ interface Props {
 }
 
 const PopularTags: React.FC<Props> = ({ onClick }) => {
-  const { data } = useFetch<TagsResponse>(apiclient.tags.list);
+  const [getTagsFun, { data }] = useFetch<TagsResponse>(getTags);
+
+  React.useEffect(() => {
+    getTagsFun();
+  }, []);
 
   if (!data) {
     return null;

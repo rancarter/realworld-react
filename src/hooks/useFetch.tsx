@@ -1,31 +1,33 @@
-import React from 'react';
-import { AxiosError, AxiosResponse } from 'axios';
+import React from "react";
+import { AxiosError } from "axios";
+
+type UseFetchResult<T> = [
+  (params?: any) => any,
+  { isFetching: boolean; data: T | null; error: AxiosError | null }
+];
 
 function useFetch<T>(
-  func: (params: any) => Promise<AxiosResponse<any>>,
-  params: Object = {},
-  dependencies: any[] = [],
-) {
+  func: (params: any) => Promise<T>,
+  params: Object = {}
+): UseFetchResult<T> {
   const [isFetching, setIsFetching] = React.useState(false);
   const [data, setData] = React.useState<T | null>(null);
   const [error, setError] = React.useState<AxiosError | null>(null);
 
-  React.useEffect(() => {
+  async function fetchFunction(args: any) {
     setIsFetching(true);
 
-    func(params)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setIsFetching(false);
-      });
-  }, dependencies);
+    try {
+      const response = await func(args);
+      setData(response);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsFetching(false);
+    }
+  }
 
-  return { isFetching, data, error };
+  return [fetchFunction, { isFetching, data, error }];
 }
 
 export default useFetch;

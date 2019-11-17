@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import apiClient, { ArticleResponse } from '../../services/apiClient';
+import { getArticleBySlug, ArticleResponse } from '../../services/articleClient';
 import useFetch from '../../hooks/useFetch';
 import ArticleMeta from './ArticleMeta';
 
@@ -12,11 +12,14 @@ interface MatchParams {
 interface Props extends RouteComponentProps<MatchParams> {}
 
 const Article: React.FC<Props> = ({ match }) => {
-  const { isFetching, data } = useFetch<ArticleResponse>(
-    apiClient.articles.get,
+  const [getArticleBySlugFun, { isFetching, data }] = useFetch<ArticleResponse>(
+    getArticleBySlug,
     match.params.slug,
-    [match.params.slug],
   );
+
+  React.useEffect(() => {
+    getArticleBySlugFun();
+  }, [match.params.slug]);
 
   if (!data || isFetching) {
     return null;
