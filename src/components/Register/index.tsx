@@ -28,7 +28,7 @@ const Register: React.FC = () => {
             <p className="text-xs-center">
               <a href="">Have an account?</a>
             </p>
-            ` <RegisterForm onSubmit={handleSubmit} />
+            <RegisterForm onSubmit={handleSubmit} />
           </div>
         </div>
       </div>
