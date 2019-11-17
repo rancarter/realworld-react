@@ -14,12 +14,11 @@ const limit = 10;
 const ArticleList: React.FC<Props> = ({ tag }) => {
   const [page, setPage] = React.useState(1);
   const [runGetArticles, { isFetching, data }] = useFetch<ArticlesResponse>(
-    getArticles,
-    { tag, offset: (page - 1) * limit }
+    getArticles
   );
 
   React.useEffect(() => {
-    runGetArticles();
+    runGetArticles({ tag, offset: (page - 1) * limit });
   }, [tag, page]);
 
   const handlePageClick = (pageNumber: number) => {

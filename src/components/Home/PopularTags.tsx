@@ -8,10 +8,10 @@ interface Props {
 }
 
 const PopularTags: React.FC<Props> = ({ onClick }) => {
-  const [getTagsFun, { data }] = useFetch<TagsResponse>(getTags);
+  const [runGetTags, { data }] = useFetch<TagsResponse>(getTags);
 
   React.useEffect(() => {
-    getTagsFun();
+    runGetTags();
   }, []);
 
   if (!data) {

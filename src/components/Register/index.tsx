@@ -5,7 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import RegisterForm, { FormValues } from "./RegisterForm";
 
 const Register: React.FC = () => {
-  const [runRegister, { isFetching, data, error }] = useFetch((params) => register(params));
+  const [runRegister, { isFetching, data, error }] = useFetch(register);
 
   const handleSubmit = (user: FormValues) => {
     runRegister({ user });
