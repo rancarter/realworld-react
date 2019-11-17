@@ -1,17 +1,17 @@
 import React from "react";
 import * as Yup from "yup";
-import { Formik, FormikErrors } from "formik";
+import { Formik, FormikErrors, FormikHelpers } from "formik";
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
-    .min(2, 'Username is too short')
-    .required('Username is required'),
+    .min(2, "Username is too short")
+    .required("Username is required"),
   email: Yup.string()
-    .email('Invalid email')
-    .required('Email is required'),  
+    .email("Invalid email")
+    .required("Email is required"),
   password: Yup.string()
-    .min(2, 'Password is too Short!')
-    .required('Password is required'),
+    .min(2, "Password is too Short!")
+    .required("Password is required")
 });
 
 export interface FormValues {
@@ -21,7 +21,7 @@ export interface FormValues {
 }
 
 interface Props {
-  onSubmit: (args: FormValues) => void;
+  onSubmit: (values: FormValues, helpers: FormikHelpers<FormValues>) => void;
 }
 
 const RegisterForm: React.FC<Props> = ({ onSubmit }) => {
@@ -37,10 +37,7 @@ const RegisterForm: React.FC<Props> = ({ onSubmit }) => {
     <Formik
       initialValues={{ username: "", email: "", password: "" }}
       validationSchema={SignupSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        onSubmit(values);
-        setSubmitting(false);
-      }}
+      onSubmit={onSubmit}
     >
       {({ values, errors, handleChange, handleBlur, handleSubmit }) => (
         <div>
@@ -76,7 +73,10 @@ const RegisterForm: React.FC<Props> = ({ onSubmit }) => {
                 onBlur={handleBlur}
               />
             </fieldset>
-            <button type="submit" className="btn btn-lg btn-primary pull-xs-right">
+            <button
+              type="submit"
+              className="btn btn-lg btn-primary pull-xs-right"
+            >
               Sign up
             </button>
           </form>

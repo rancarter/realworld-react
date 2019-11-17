@@ -1,7 +1,7 @@
 import React from "react";
 import { AxiosError } from "axios";
 
-type UseFetchFunc<T> = (...params: any) => Promise<T>;
+type FetchFn<T> = (...params: any[]) => Promise<T>;
 
 type UseFetchResult<T> = [
   (params?: any) => any,
@@ -12,16 +12,16 @@ type UseFetchResult<T> = [
   }
 ];
 
-function useFetch<T>(func: UseFetchFunc<T>): UseFetchResult<T> {
+function useFetch<T>(fetchFn: FetchFn<T>): UseFetchResult<T> {
   const [isFetching, setIsFetching] = React.useState(false);
   const [data, setData] = React.useState<T | null>(null);
   const [error, setError] = React.useState<AxiosError | null>(null);
 
-  async function fetchFunction(...params: any) {
+  async function runFetchFn(...params: any) {
     setIsFetching(true);
 
     try {
-      const response = await func(...params);
+      const response = await fetchFn(...params);
       setData(response);
     } catch (error) {
       setError(error);
@@ -30,7 +30,7 @@ function useFetch<T>(func: UseFetchFunc<T>): UseFetchResult<T> {
     }
   }
 
-  return [fetchFunction, { isFetching, data, error }];
+  return [runFetchFn, { isFetching, data, error }];
 }
 
 export default useFetch;

@@ -1,14 +1,22 @@
 import React from "react";
+import { FormikHelpers } from "formik";
 
 import { register } from "../../services/authClient";
-import useFetch from "../../hooks/useFetch";
+import { transformErrors } from "../../utils/formUtils";
 import RegisterForm, { FormValues } from "./RegisterForm";
 
 const Register: React.FC = () => {
-  const [runRegister, { isFetching, data, error }] = useFetch(register);
-
-  const handleSubmit = (user: FormValues) => {
-    runRegister({ user });
+  const handleSubmit = async (
+    values: FormValues,
+    { setErrors, setSubmitting }: FormikHelpers<FormValues>
+  ) => {
+    try {
+      const { user } = await register({ user: values });
+    } catch (error) {
+      setErrors(transformErrors(error.errors));
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
