@@ -1,25 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect} from "react-router-dom";
 import { FormikHelpers } from "formik";
 
 import { ROUTES } from "../../constants";
-import { register } from "../../services/authClient";
+import { useAuth } from "../../context/authContext";
 import { transformErrors } from "../../utils/formUtils";
 import RegisterForm, { FormValues } from "./RegisterForm";
 
 const Register: React.FC = () => {
+  const { register, isAuthorized } = useAuth();
+
   const handleSubmit = async (
     values: FormValues,
     { setErrors, setSubmitting }: FormikHelpers<FormValues>
   ) => {
     try {
-      const { user } = await register({ user: values });
+      await register({ user: values });
     } catch (error) {
       setErrors(transformErrors(error.errors));
     } finally {
       setSubmitting(false);
     }
   };
+
+  if (isAuthorized) {
+    return <Redirect to="/" />; 
+  }
 
   return (
     <div className="auth-page">
