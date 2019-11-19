@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FormikHelpers } from "formik";
 
+import { ROUTES } from "../../constants";
 import { register } from "../../services/authClient";
 import { transformErrors } from "../../utils/formUtils";
 import RegisterForm, { FormValues } from "./RegisterForm";
@@ -26,7 +28,7 @@ const Register: React.FC = () => {
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign up</h1>
             <p className="text-xs-center">
-              <a href="">Have an account?</a>
+              <Link to={ROUTES.LOGIN.PATH}>Have an account?</Link>
             </p>
             <RegisterForm onSubmit={handleSubmit} />
           </div>
