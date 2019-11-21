@@ -23,7 +23,7 @@ const ArticleItem: React.FC<Props> = ({ article }) => (
       </button>
     </div>
     <Link
-      to={generatePath(ROUTES.ARTICLE.PATH, { slug: article.slug })}
+      to={generatePath(ROUTES.article, { slug: article.slug })}
       className="preview-link"
     >
       <h1>{article.title}</h1>

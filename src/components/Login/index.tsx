@@ -33,7 +33,7 @@ const Login: React.FC = () => {
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign in</h1>
             <p className="text-xs-center">
-              <Link to={ROUTES.REGISTER.PATH}>Need an account?</Link>
+              <Link to={ROUTES.article}>Need an account?</Link>
             </p>
             <LoginForm onSubmit={handleSubmit} />
           </div>

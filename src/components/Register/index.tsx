@@ -34,7 +34,7 @@ const Register: React.FC = () => {
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign up</h1>
             <p className="text-xs-center">
-              <Link to={ROUTES.LOGIN.PATH}>Have an account?</Link>
+              <Link to={ROUTES.login}>Have an account?</Link>
             </p>
             <RegisterForm onSubmit={handleSubmit} />
           </div>
