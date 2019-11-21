@@ -25,12 +25,23 @@ const ArticleList: React.FC<Props> = ({ tag }) => {
     setPage(pageNumber);
   };
 
+  const renderArticles = () => {
+    if (!data) {
+      return null;
+    }
+
+    if (!data.articles.length) {
+      return "No articles are here... yet.";
+    }
+
+    return data.articles.map(article => (
+      <ArticleItem key={article.slug} article={article} />
+    ));
+  };
+
   return (
     <>
-      {data &&
-        data.articles.map(article => (
-          <ArticleItem key={article.slug} article={article} />
-        ))}
+      {renderArticles()}
 
       {isFetching && <div>Loading articles...</div>}
 

@@ -1,20 +1,23 @@
-const subscribers: any = {};
+type Callback = () => any;
 
-function subscribe(event: string, cb: () => any) {
-    if (!subscribers[event]) {
-        subscribers[event] = [];
-    }
+const subscribers: { [key: string]: Callback[] } = {};
 
-    subscribers[event].push(cb);
+function subscribe(event: string, cb: Callback) {
+  if (!subscribers[event]) {
+    subscribers[event] = [];
+  }
 
-    return () => {
-        subscribers[event] = subscribers[event].filter((subscribedCb: any) => subscribedCb !== cb);
-    };
+  subscribers[event].push(cb);
+
+  return () => {
+    subscribers[event] = subscribers[event].filter(
+      subscriber => subscriber !== cb
+    );
+  };
 }
 
 function publish(event: string) {
-    subscribers[event] && subscribers[event].forEach((cb: any) => cb());
+  subscribers[event] && subscribers[event].forEach(cb => cb());
 }
 
 export { subscribe, publish };
-

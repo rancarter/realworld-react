@@ -11,26 +11,37 @@ interface Props {
 
 const limit = 10;
 
-const ArticleList: React.FC<Props> = ({ tag }) => {
+const ArticleList: React.FC<Props> = () => {
   const [page, setPage] = React.useState(1);
-  const [runGetArticles, { isFetching, data }] = useFetch<ArticlesResponse>(
+  const [runGetFeed, { isFetching, data }] = useFetch<ArticlesResponse>(
     getFeed
   );
 
   React.useEffect(() => {
-    runGetArticles({ tag, offset: (page - 1) * limit });
-  }, [tag, page]);
+    runGetFeed({ offset: (page - 1) * limit });
+  }, [page]);
 
   const handlePageClick = (pageNumber: number) => {
     setPage(pageNumber);
   };
 
+  const renderArticles = () => {
+    if (!data) {
+      return null;
+    }
+
+    if (!data.articles.length) {
+      return "No articles are here... yet.";
+    }
+
+    return data.articles.map(article => (
+      <ArticleItem key={article.slug} article={article} />
+    ));
+  };
+
   return (
     <>
-      {data &&
-        data.articles.map(article => (
-          <ArticleItem key={article.slug} article={article} />
-        ))}
+      {renderArticles()}
 
       {isFetching && <div>Loading articles...</div>}
 

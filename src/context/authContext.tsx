@@ -22,7 +22,7 @@ const AuthContext = React.createContext<Context>({
   logout: () => {},
 });
 
-export const AuthProvider: React.FC<Props> = ({ children }) => {
+const AuthProvider: React.FC<Props> = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = React.useState(
     !!tokenService.getToken()
   );
@@ -42,7 +42,6 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   function logout() {
-    console.log('logout');
     tokenService.removeToken();
     setIsAuthorized(false);
   }
@@ -61,7 +60,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   );
 };
 
-export function useAuth() {
+function useAuth() {
   const context = React.useContext(AuthContext);
 
   if (context === undefined) {
@@ -70,3 +69,5 @@ export function useAuth() {
 
   return context;
 }
+
+export { AuthProvider, useAuth };
