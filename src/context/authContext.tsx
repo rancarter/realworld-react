@@ -1,8 +1,8 @@
 import React from "react";
-import { AxiosError } from "axios";
 
 import * as authClient from "../services/authClient";
 import * as tokenService from "../services/tokenService";
+import * as subscriber from '../services/subscriber';
 
 interface Props {
   children: React.ReactNode;
@@ -27,6 +27,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     !!tokenService.getToken()
   );
 
+  React.useEffect(() => subscriber.subscribe('unauthorized', logout), []);
+
   async function login(params: any) {
     const { user } = await authClient.login(params);
     tokenService.setToken(user.token);
@@ -40,6 +42,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   function logout() {
+    console.log('logout');
     tokenService.removeToken();
     setIsAuthorized(false);
   }

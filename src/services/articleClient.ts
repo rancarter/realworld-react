@@ -1,7 +1,5 @@
-import { AxiosResponse } from "axios";
 import apiClient from "./apiClient";
 import { Article } from "../types";
-import { getPackedSettings } from "http2";
 
 export type ArticleResponse = {
   article: Article;
@@ -19,12 +17,15 @@ export type TagsResponse = {
 interface GetArticlesParams {
   limit: number;
   offset: number;
-  tag?: string;
+  tag: string | null;
 }
 
-export function getArticleBySlug(
-  slug: string
-): Promise<ArticleResponse> {
+interface GetFeedParams {
+  limit: number;
+  offset: number;
+}
+
+export function getArticleBySlug(slug: string): Promise<ArticleResponse> {
   return apiClient.get(`/articles/${slug}`);
 }
 
@@ -37,8 +38,16 @@ export function getArticles({
   return apiClient.get(`/articles?${params}`);
 }
 
-export function getTags(): Promise<TagsResponse>{
-    return apiClient.get('/tags');
+export function getFeed({
+  limit,
+  offset
+}: GetFeedParams): Promise<ArticlesResponse> {
+  const params = getParamsString({ limit, offset });
+  return apiClient.get(`/articles/feed?${params}`);
+}
+
+export function getTags(): Promise<TagsResponse> {
+  return apiClient.get("/tags");
 }
 
 function getParamsString(params: Object): string {
