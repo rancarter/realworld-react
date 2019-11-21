@@ -15,10 +15,10 @@ const App: React.FC = () => {
         <Router>
           <div className="App">
             <Header />
-            <Route path={ROUTES.HOME.PATH} exact component={Home} />
-            <Route path={ROUTES.LOGIN.PATH} component={Login} />
-            <Route path={ROUTES.REGISTER.PATH} component={Register} />
-            <Route path={ROUTES.ARTICLE.PATH} component={Article} />
+            <Route path={ROUTES.home} exact component={Home} />
+            <Route path={ROUTES.login} component={Login} />
+            <Route path={ROUTES.register} component={Register} />
+            <Route path={ROUTES.article} component={Article} />
           </div>
         </Router>
     </AuthProvider>
