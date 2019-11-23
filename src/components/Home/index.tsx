@@ -27,7 +27,7 @@ const Home: React.FC = () => {
         <div className="row">
           <div className="col-md-9">
             <FeedToggle tab={tab} tag={tag} onTabClick={handleTabClick} />
-            {tab === "your" ? <Feed tag={tag} /> : <ArticleList tag={tag} />}
+            {tab === "your" ? <Feed /> : <ArticleList tag={tag} />}
           </div>
           <div className="col-md-3">
             <div className="sidebar">

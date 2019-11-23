@@ -2,7 +2,7 @@ import React from "react";
 
 import * as authClient from "../services/authClient";
 import * as tokenService from "../services/tokenService";
-import * as subscriber from '../services/subscriber';
+import * as eventEmitter from '../services/eventEmitter';
 
 interface Props {
   children: React.ReactNode;
@@ -27,7 +27,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     !!tokenService.getToken()
   );
 
-  React.useEffect(() => subscriber.subscribe('unauthorized', logout), []);
+  React.useEffect(() => eventEmitter.subscribe('unauthorized', logout), []);
 
   async function login(params: any) {
     const { user } = await authClient.login(params);

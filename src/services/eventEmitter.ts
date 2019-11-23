@@ -16,8 +16,8 @@ function subscribe(event: string, cb: Callback) {
   };
 }
 
-function publish(event: string) {
+function emit(event: string) {
   subscribers[event] && subscribers[event].forEach(cb => cb());
 }
 
-export { subscribe, publish };
+export { subscribe, emit };

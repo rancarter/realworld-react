@@ -5,13 +5,9 @@ import useFetch from "../../hooks/useFetch";
 import ArticleItem from "./ArticleItem";
 import Pagination from "./Pagination";
 
-interface Props {
-  tag: string | null;
-}
-
 const limit = 10;
 
-const ArticleList: React.FC<Props> = () => {
+const Feed: React.FC = () => {
   const [page, setPage] = React.useState(1);
   const [runGetFeed, { isFetching, data }] = useFetch<ArticlesResponse>(
     getFeed
@@ -57,4 +53,4 @@ const ArticleList: React.FC<Props> = () => {
   );
 };
 
-export default ArticleList;
+export default Feed;

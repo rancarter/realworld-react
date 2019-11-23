@@ -14,8 +14,9 @@ const limit = 10;
 const ArticleList: React.FC<Props> = ({ tag }) => {
   const [page, setPage] = React.useState(1);
   const [runGetArticles, { isFetching, data }] = useFetch<ArticlesResponse>(
-    getArticles
+    getArticles,
   );
+  const { articles = [], articlesCount = 0 } = data || {};
 
   React.useEffect(() => {
     runGetArticles({ tag, offset: (page - 1) * limit });
@@ -26,15 +27,11 @@ const ArticleList: React.FC<Props> = ({ tag }) => {
   };
 
   const renderArticles = () => {
-    if (!data) {
-      return null;
-    }
-
-    if (!data.articles.length) {
+    if (!articles.length) {
       return "No articles are here... yet.";
     }
 
-    return data.articles.map(article => (
+    return articles.map(article => (
       <ArticleItem key={article.slug} article={article} />
     ));
   };
@@ -47,7 +44,7 @@ const ArticleList: React.FC<Props> = ({ tag }) => {
 
       {data && (
         <Pagination
-          articlesCount={data.articlesCount}
+          articlesCount={articlesCount}
           currentPage={page}
           onPageClick={handlePageClick}
           limit={limit}

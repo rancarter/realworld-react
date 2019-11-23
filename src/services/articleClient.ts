@@ -1,5 +1,5 @@
 import apiClient from "./apiClient";
-import { Article } from "../types";
+import { Article } from "../interfaces";
 
 export type ArticleResponse = {
   article: Article;

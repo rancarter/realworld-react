@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 
 import { API_URL } from "../constants";
 import * as tokenService from './tokenService';
-import * as subscriber from './subscriber';
+import * as eventEmitter from './eventEmitter';
 
 enum HTTP_STATUSES {
   UNAUTHORIZED = 401
@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
       error.response &&
       error.response.status === HTTP_STATUSES.UNAUTHORIZED
     ) {
-      subscriber.publish('unauthorized');
+        eventEmitter.emit('unauthorized');
     }
 
     return Promise.reject(error.response && error.response.data);

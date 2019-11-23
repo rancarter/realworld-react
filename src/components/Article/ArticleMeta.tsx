@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Article } from '../../types';
+import { Article } from '../../interfaces';
 
 interface Props {
   article: Article,

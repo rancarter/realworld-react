@@ -1,5 +1,5 @@
 import apiClient from "./apiClient";
-import { UserWithToken } from "../types";
+import { UserWithToken } from "../interfaces";
 
 interface RegisterParams {
   user: {
@@ -13,10 +13,6 @@ interface RegisterResponse {
   user: UserWithToken;
 }
 
-interface LoginResponse {
-  user: UserWithToken;
-}
-
 interface LoginParams {
   user: {
     email: string;
@@ -24,10 +20,16 @@ interface LoginParams {
   };
 }
 
-export function register(params: RegisterParams): Promise<RegisterResponse> {
-  return apiClient.post('/users', params);
+interface LoginResponse {
+  user: UserWithToken;
 }
 
-export function login(params: LoginParams): Promise<LoginResponse> {
+function register(params: RegisterParams): Promise<RegisterResponse> {
+  return apiClient.post("/users", params);
+}
+
+function login(params: LoginParams): Promise<LoginResponse> {
   return apiClient.post("/users/login", params);
 }
+
+export { register, login };

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, generatePath } from 'react-router-dom';
 
 import { ROUTES } from '../../constants';
-import { Article as ArticleType } from '../../types';
+import { Article as ArticleType } from '../../interfaces';
 
 interface Props {
   article: ArticleType,
