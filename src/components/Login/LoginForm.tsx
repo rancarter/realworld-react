@@ -1,6 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
-import { Formik, FormikHelpers } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 
 import Fieldset from "../common/Form/Fieldset";
 import TextField from "../common/Form/TextField";
@@ -35,28 +35,26 @@ function LoginForm({ onSubmit }: Props) {
       validationSchema={Schema}
       onSubmit={onSubmit}
     >
-      {formik => {
-        return (
-          <div>
-            <FormErrors<Values> errors={formik.errors} />
-            <form onSubmit={formik.handleSubmit}>
-              <Fieldset>
-                <TextField type="email" placeholder="Email" name="email" />
-              </Fieldset>
+      {({ errors }) => (
+        <div>
+          <FormErrors<Values> errors={errors} />
+          <Form>
+            <Fieldset>
+              <TextField type="email" placeholder="Email" name="email" />
+            </Fieldset>
 
-              <Fieldset>
-                <TextField
-                  name="password"
-                  type="password"
-                  placeholder="Password"
-                />
-              </Fieldset>
+            <Fieldset>
+              <TextField
+                name="password"
+                type="password"
+                placeholder="Password"
+              />
+            </Fieldset>
 
-              <Button type="submit">Sign in</Button>
-            </form>
-          </div>
-        );
-      }}
+            <Button type="submit">Sign in</Button>
+          </Form>
+        </div>
+      )}
     </Formik>
   );
 }

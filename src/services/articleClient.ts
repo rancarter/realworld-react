@@ -1,10 +1,5 @@
 import apiClient from "./apiClient";
 import { Article } from "../interfaces";
-import { AxiosResponse } from "axios";
-
-export type ArticleResponse = {
-  article: Article;
-};
 
 export type ArticlesResponse = {
   articles: Article[];
@@ -26,8 +21,8 @@ interface GetFeedParams {
   offset: number;
 }
 
-export function getArticleBySlug(slug: string): Promise<ArticleResponse> {
-  return apiClient.get(`/articles/${slug}`);
+export function getArticleBySlug(slug: string): Promise<Article> {
+  return apiClient.get(`/articles/${slug}`).then((response: any) => response.article);
 }
 
 export function getArticles({

@@ -1,10 +1,8 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-import {
-  getArticleBySlug,
-  ArticleResponse
-} from "../../services/articleClient";
+import { getArticleBySlug } from "../../services/articleClient";
+import * as Interfaces from "../../interfaces";
 import ArticleMeta from "./ArticleMeta";
 
 interface MatchParams {
@@ -14,19 +12,16 @@ interface MatchParams {
 interface Props extends RouteComponentProps<MatchParams> {}
 
 function Article({ match }: Props) {
-  const [articleResponse, setArticleResponse] = React.useState<ArticleResponse | null>(null);
+  const [article, setArticle] = React.useState<Interfaces.Article>();
 
   React.useEffect(() => {
-    getArticleBySlug(match.params.slug).then(response => {
-        setArticleResponse(response);
-    });
+    getArticleBySlug(match.params.slug).then(setArticle);
   }, [match.params.slug]);
 
-  if (!articleResponse) {
+  if (!article) {
     return null;
   }
 
-  const { article } = articleResponse;
   const paragraphs = article.body.split(/\s{2,}/g);
 
   return (
@@ -55,6 +50,6 @@ function Article({ match }: Props) {
       </div>
     </div>
   );
-};
+}
 
 export default Article;
