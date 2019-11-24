@@ -1,12 +1,13 @@
-import React from 'react';
+import React from "react";
 
-const Banner: React.FC = () => (
-  <div className="banner">
-    <div className="container">
-      <h1 className="logo-font">conduit</h1>
-      <p>A place to share your knowledge.</p>
+function Banner() {
+  return (
+    <div className="banner">
+      <div className="container">
+        <h1 className="logo-font">conduit</h1>
+        <p>A place to share your knowledge.</p>
+      </div>
     </div>
-  </div>
-);
-
+  );
+}
 export default Banner;

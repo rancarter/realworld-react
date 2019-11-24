@@ -1,6 +1,11 @@
 import React from "react";
 import * as Yup from "yup";
-import { useFormik, FormikHelpers } from "formik";
+import { FormikHelpers, Formik } from "formik";
+
+import Fieldset from "../common/Form/Fieldset";
+import TextField from "../common/Form/TextField";
+import FormErrors from "../common/Form/FormErrors";
+import Button from "../common/Button";
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -24,59 +29,46 @@ interface Props {
   onSubmit: (values: FormValues, helpers: FormikHelpers<FormValues>) => void;
 }
 
-const RegisterForm: React.FC<Props> = ({ onSubmit }) => {
-  const formik = useFormik<FormValues>({
-    initialValues: {
-      username: "",
-      email: "",
-      password: ""
-    },
-    validationSchema: SignupSchema,
-    onSubmit
-  });
-
+function RegisterForm({ onSubmit }: Props) {
   return (
     <div>
-      <ul className="error-messages">
-        {Object.values(formik.errors).map(error => (
-          <li key={error}>{error}</li>
-        ))}
-      </ul>
-      <form onSubmit={formik.handleSubmit}>
-        <fieldset className="form-group">
-          <input
-            className="form-control form-control-lg"
-            type="text"
-            placeholder="Your Name"
-            name="username"
-            value={formik.values.username}
-            onChange={formik.handleChange}
-          />
-        </fieldset>
-        <fieldset className="form-group">
-          <input
-            className="form-control form-control-lg"
-            type="email"
-            placeholder="Email"
-            name="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-          />
-        </fieldset>
-        <fieldset className="form-group">
-          <input
-            className="form-control form-control-lg"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-          />
-        </fieldset>
-        <button type="submit" className="btn btn-lg btn-primary pull-xs-right">
-          Sign up
-        </button>
-      </form>
+      <Formik
+        initialValues={{
+          username: "",
+          email: "",
+          password: ""
+        }}
+        validationSchema={SignupSchema}
+        onSubmit={onSubmit}
+      >
+        {formik => {
+          return (
+            <>
+              <FormErrors<FormValues> errors={formik.errors} />
+
+              <form onSubmit={formik.handleSubmit}>
+                <Fieldset>
+                  <TextField placeholder="Your Name" name="username" />
+                </Fieldset>
+
+                <Fieldset>
+                  <TextField type="email" placeholder="Email" name="email" />
+                </Fieldset>
+
+                <Fieldset>
+                  <TextField
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                  />
+                </Fieldset>
+
+                <Button type="submit">Sign up</Button>
+              </form>
+            </>
+          );
+        }}
+      </Formik>
     </div>
   );
 };

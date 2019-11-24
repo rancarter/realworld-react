@@ -7,7 +7,7 @@ import Pagination from "./Pagination";
 
 const limit = 10;
 
-const Feed: React.FC = () => {
+function Feed() {
   const [page, setPage] = React.useState(1);
   const [runGetFeed, { isFetching, data }] = useFetch<ArticlesResponse>(
     getFeed
@@ -26,7 +26,7 @@ const Feed: React.FC = () => {
       return null;
     }
 
-    if (!data.articles.length) {
+    if (!isFetching && !data.articles.length) {
       return "No articles are here... yet.";
     }
 

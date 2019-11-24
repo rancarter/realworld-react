@@ -4,7 +4,7 @@ import { NavLink, Link } from "react-router-dom";
 import { ROUTES } from "../constants";
 import { useAuth } from "../context/authContext";
 
-const Header: React.FC = () => {
+function Header() {
   const { isAuthorized } = useAuth();
 
   return (

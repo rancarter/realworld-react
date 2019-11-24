@@ -11,7 +11,7 @@ interface Props {
 
 const limit = 10;
 
-const ArticleList: React.FC<Props> = ({ tag }) => {
+function ArticleList({ tag }: Props) {
   const [page, setPage] = React.useState(1);
   const [runGetArticles, { isFetching, data }] = useFetch<ArticlesResponse>(
     getArticles,
@@ -22,12 +22,12 @@ const ArticleList: React.FC<Props> = ({ tag }) => {
     runGetArticles({ tag, offset: (page - 1) * limit });
   }, [tag, page]);
 
-  const handlePageClick = (pageNumber: number) => {
+  function handlePageClick(pageNumber: number) {
     setPage(pageNumber);
   };
 
-  const renderArticles = () => {
-    if (!articles.length) {
+  function renderArticles() {
+    if (!isFetching && !articles.length) {
       return "No articles are here... yet.";
     }
 

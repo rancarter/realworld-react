@@ -1,5 +1,6 @@
 import apiClient from "./apiClient";
 import { Article } from "../interfaces";
+import { AxiosResponse } from "axios";
 
 export type ArticleResponse = {
   article: Article;
@@ -46,8 +47,8 @@ export function getFeed({
   return apiClient.get(`/articles/feed?${params}`);
 }
 
-export function getTags(): Promise<TagsResponse> {
-  return apiClient.get("/tags");
+export function getTags(): Promise<string[]> {
+  return apiClient.get("/tags").then((response: any) => response.tags);
 }
 
 function getParamsString(params: Object): string {

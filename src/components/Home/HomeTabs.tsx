@@ -9,7 +9,7 @@ interface Props {
   onTabClick: (tabName: string) => void;
 }
 
-const FeedToggle: React.FC<Props> = ({ tab, tag, onTabClick }) => {
+function HomeTabs({ tab, tag, onTabClick }: Props) {
   const { isAuthorized } = useAuth();
 
   return (
@@ -54,4 +54,4 @@ const FeedToggle: React.FC<Props> = ({ tab, tag, onTabClick }) => {
   );
 };
 
-export default FeedToggle;
+export default HomeTabs;

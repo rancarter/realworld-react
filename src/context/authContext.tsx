@@ -22,7 +22,7 @@ const AuthContext = React.createContext<Context>({
   logout: () => {},
 });
 
-const AuthProvider: React.FC<Props> = ({ children }) => {
+function AuthProvider({ children }: Props) {
   const [isAuthorized, setIsAuthorized] = React.useState(
     !!tokenService.getToken()
   );

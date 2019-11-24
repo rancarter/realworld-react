@@ -1,19 +1,14 @@
-import React from 'react';
-import classNames from 'classnames';
+import React from "react";
+import classNames from "classnames";
 
 interface Props {
-  limit: number,
-  articlesCount: number,
-  currentPage: number,
-  onPageClick: (page: number) => void,
+  limit: number;
+  articlesCount: number;
+  currentPage: number;
+  onPageClick: (page: number) => void;
 }
 
-const Pagination: React.FC<Props> = ({
-  limit,
-  articlesCount,
-  currentPage,
-  onPageClick,
-}) => {
+function Pagination({ limit, articlesCount, currentPage, onPageClick }: Props) {
   const pagesCount = articlesCount / limit;
   const pages = [];
 
@@ -21,16 +16,16 @@ const Pagination: React.FC<Props> = ({
     pages.push(
       <li
         key={i}
-        className={classNames('page-item', { 
-          active: i === currentPage,
+        className={classNames("page-item", {
+          active: i === currentPage
         })}
       >
         <a
           href=""
           className="page-link"
-          onClick={(event) => {
+          onClick={event => {
             event.preventDefault();
-            onPageClick(i)
+            onPageClick(i);
           }}
         >
           {i}
@@ -41,11 +36,9 @@ const Pagination: React.FC<Props> = ({
 
   return (
     <nav>
-      <ul className="pagination">
-        {pages}
-      </ul>
+      <ul className="pagination">{pages}</ul>
     </nav>
   );
-};
+}
 
 export default Pagination;

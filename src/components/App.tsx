@@ -9,7 +9,7 @@ import Login from './Login';
 import Register from './Register';
 import Article from './Article';
 
-const App: React.FC = () => {
+function App() {
   return (
     <AuthProvider>
         <Router>
